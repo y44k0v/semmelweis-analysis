@@ -1,4 +1,6 @@
-# Semmelweis Handwashing Analysis — Django App
+# Semmelweis Handwashing Analysis - Django App
+
+## Python for Web Develpment
 
 ## 0. Source & Static Rendering
 
@@ -6,9 +8,10 @@
 
 [Static Website - No Django](https://y44k0v.github.io/semmelweis-analysis/)
 
-## 1. Project Structure
- 
-```
+### 1. Project Structure
+
+```BASH
+
 semmelweis_project/
 ├── README.md
 ├── analysis
@@ -23,7 +26,7 @@ semmelweis_project/
 │   ├── tests.py
 │   ├── urls.py
 │   └── views.py
-├── docs                            # Github pages
+├── docs                            # GitHub pages
 │   ├── analysis.html
 │   ├── downloads
 │   │   ├── bootstrap_ci.png
@@ -71,19 +74,21 @@ semmelweis_project/
     └── base.html
 
 ```
- 
+
 ---
- 
-## 2. Setup & Installation
- 
-```
+
+### 2. Setup & Installation
+
+Clone and/or Fork/Clone
+
+```Python
 Django>=4.2,<5.0
 pandas>=2.0
 matplotlib>=3.7
 numpy>=1.24
 scipy>=1.10
 ```
- 
+
 ```bash
 python -m venv venv
 source venv/bin/activate
@@ -92,5 +97,5 @@ pip install -r requirements.txt
 django-admin startproject semmelweis_project .
 python manage.py startapp analysis
 ```
- 
+
 ---
