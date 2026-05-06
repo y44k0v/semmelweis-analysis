@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Yearly Data{% endblock %}
+
+{% block content %}
+<div class="flex justify-between items-center my-4">
+  <h1 class="text-xl font-bold">Yearly Deaths by Clinic</h1>
+  <div class="flex gap-2">
+    <a href="{% url 'analysis:yearly-create' %}" class="btn btn-sm btn-primary">+ Add record</a>
+    <a href="{% url 'analysis:dl-yearly-csv' %}" class="btn btn-sm btn-outline">⬇ CSV</a>
+    <a href="{% url 'analysis:dl-clinic-chart' %}" class="btn btn-sm btn-outline">⬇ Chart PNG</a>
+  </div>
+</div>
+
+<!-- Clinic comparison chart -->
+<div class="card bg-base-100 shadow mb-6 p-4">
+  <div class="h-72"><canvas id="clinicChart"></canvas></div>
+</div>
+
+<!-- Tabs: Clinic 1 | Clinic 2 | All -->
+<div role="tablist" class="tabs tabs-bordered mb-4">
+  <input type="radio" name="clinic-tabs" role="tab" class="tab" aria-label="Clinic 1" checked="checked" />
+  <!-- Clinic 1 table -->
+  <div role="tabpanel" class="tab-content p-2">
+    {% include "analysis/_yearly_table.html" with rows=clinic1 %}
+  </div>
+
+  <input type="radio" name="clinic-tabs" role="tab" class="tab" aria-label="Clinic 2" />
+  <!-- Clinic 2 table -->
+  <div role="tabpanel" class="tab-content p-2">
+    {% include "analysis/_yearly_table.html" with rows=clinic2 %}
+  </div>
+
+  <input type="radio" name="clinic-tabs" role="tab" class="tab" aria-label="All Records" />
+  <!-- All records table -->
+  <div role="tabpanel" class="tab-content p-2">
+    {% include "analysis/_yearly_table.html" with rows=records %}
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const data = {{ chart_data|safe }};
+    if (data && !data.empty) renderClinicChart("clinicChart", data);
+  });
+</script>
+{% endblock %}
