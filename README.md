@@ -83,6 +83,8 @@ semmelweis_project/
 
 Clone and/or Fork/Clone
 
+requirements.txt:
+
 ```Python
 Django>=4.2,<5.0
 pandas>=2.0
@@ -98,6 +100,11 @@ pip install -r requirements.txt
  
 django-admin startproject semmelweis_project .
 python manage.py startapp analysis
+
+python manage.py runserver
+
+#    Go to http://127.0.0.1:8000/upload/
+#    and import both CSV files.
 ```
 
 ---
