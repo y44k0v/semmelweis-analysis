@@ -1,0 +1,268 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Statistical Analysis</title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4/dist/full.min.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+  
+  <script src="./static/js/charts.js" defer></script>
+</head>
+<body class="min-h-screen bg-base-200">
+
+  <nav class="navbar bg-base-100 shadow px-4 gap-2">
+    <div class="flex-1">
+      <a href="index.html" class="btn btn-ghost text-xl font-bold">
+        🧼 Semmelweis
+      </a>
+    </div>
+    <div class="flex-none flex gap-2">
+      <a href="#" onclick="alert('Upload disabled in static version.'); return false;"       class="btn btn-sm btn-outline">Upload CSV</a>
+      <a href="yearly.html"  class="btn btn-sm btn-outline">Yearly</a>
+      <a href="monthly.html" class="btn btn-sm btn-outline">Monthly</a>
+      <a href="analysis.html"     class="btn btn-sm btn-primary">Analysis</a>
+    </div>
+  </nav>
+
+  <main class="container mx-auto p-4 max-w-6xl">
+    
+<div class="flex justify-between items-center my-4">
+  <h1 class="text-2xl font-bold">Statistical Analysis</h1>
+  <div class="flex gap-2">
+    <a href="downloads/clinic_comparison.png" download    class="btn btn-sm btn-outline">⬇ Clinic PNG</a>
+    <a href="downloads/monthly_proportion.png" download   class="btn btn-sm btn-outline">⬇ Monthly PNG</a>
+    <a href="downloads/bootstrap_ci.png" download class="btn btn-sm btn-outline">⬇ Bootstrap PNG</a>
+    <a href="downloads/yearly_deaths.csv" download      class="btn btn-sm btn-outline">⬇ Yearly CSV</a>
+    <a href="downloads/monthly_deaths.csv" download     class="btn btn-sm btn-outline">⬇ Monthly CSV</a>
+  </div>
+</div>
+
+<div role="tablist" class="tabs tabs-boxed mb-0 bg-base-100 rounded-b-none px-2 pt-2">
+  <input type="radio" name="atabs" role="tab" class="tab" aria-label="Clinic Comparison" checked="checked" />
+  <!-- ── Tab 1: Clinic comparison ── -->
+  <div role="tabpanel" class="tab-content col-span-5 bg-base-100 rounded-b-box rounded-tr-box p-6">
+    <h2 class="font-semibold mb-3">Proportion of Deaths: Clinic 1 vs Clinic 2 (1841–1846)</h2>
+    <div class="bg-white rounded p-3 shadow-inner mb-4 h-80">
+      <canvas id="aClinicChart"></canvas>
+    </div>
+    
+    <div class="overflow-x-auto">
+      <table class="table table-sm table-zebra w-full">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Clinic 1 (proportion)</th>
+            <th>Clinic 2 (proportion)</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr>
+            <td>1841</td>
+            <td>0.0781</td>
+            <td>0.0352</td>
+          </tr>
+          
+          <tr>
+            <td>1842</td>
+            <td>0.1576</td>
+            <td>0.076</td>
+          </tr>
+          
+          <tr>
+            <td>1843</td>
+            <td>0.0895</td>
+            <td>0.0599</td>
+          </tr>
+          
+          <tr>
+            <td>1844</td>
+            <td>0.0824</td>
+            <td>0.023</td>
+          </tr>
+          
+          <tr>
+            <td>1845</td>
+            <td>0.069</td>
+            <td>0.0204</td>
+          </tr>
+          
+          <tr>
+            <td>1846</td>
+            <td>0.1145</td>
+            <td>0.028</td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+    
+  </div>
+
+  <input type="radio" name="atabs" role="tab" class="tab" aria-label="Handwashing Effect" />
+  <!-- ── Tab 2: Handwashing effect ── -->
+  <div role="tabpanel" class="tab-content col-span-5 bg-base-100 rounded-b-box rounded-tr-box p-6">
+    <h2 class="font-semibold mb-3">Monthly Proportion of Deaths (Clinic 1)</h2>
+    <div class="bg-white rounded p-3 shadow-inner mb-4 h-80">
+      <canvas id="aMonthlyChart"></canvas>
+    </div>
+    <div class="stats stats-horizontal shadow text-sm">
+      <div class="stat py-3 px-5">
+        <div class="stat-title text-xs">Mean before washing</div>
+        <div class="stat-value text-error text-xl">0.105</div>
+      </div>
+      <div class="stat py-3 px-5">
+        <div class="stat-title text-xs">Mean after washing</div>
+        <div class="stat-value text-success text-xl">0.0211</div>
+      </div>
+      <div class="stat py-3 px-5">
+        <div class="stat-title text-xs">Mean difference</div>
+        <div class="stat-value text-primary text-xl">-0.084</div>
+      </div>
+    </div>
+    <p class="text-sm text-gray-500 mt-3">
+      Handwashing reduced the proportion of deaths by approximately
+      <strong>-0.084</strong> (absolute).
+    </p>
+  </div>
+
+  <input type="radio" name="atabs" role="tab" class="tab" aria-label="Bootstrap CI" />
+  <!-- ── Tab 3: Bootstrap CI ── -->
+  <div role="tabpanel" class="tab-content col-span-5 bg-base-100 rounded-b-box rounded-tr-box p-6">
+    <h2 class="font-semibold mb-3">Bootstrap 95 % Confidence Interval (3 000 resamples)</h2>
+    <div class="bg-white rounded p-3 shadow-inner mb-4 h-80">
+      <canvas id="aBootstrapChart"></canvas>
+    </div>
+    <div class="stats stats-horizontal shadow text-sm">
+      <div class="stat py-3 px-5">
+        <div class="stat-title text-xs">Lower bound (2.5 %)</div>
+        <div class="stat-value text-lg">-0.1017</div>
+      </div>
+      <div class="stat py-3 px-5">
+        <div class="stat-title text-xs">Upper bound (97.5 %)</div>
+        <div class="stat-value text-lg">-0.067</div>
+      </div>
+    </div>
+    <p class="text-sm text-gray-500 mt-3">
+      With 95 % confidence, handwashing reduced the monthly death proportion by between
+      <strong>10.17%</strong> and <strong>6.7%</strong>
+      (absolute reduction).
+    </p>
+  </div>
+
+  <input type="radio" name="atabs" role="tab" class="tab" aria-label="t-Test" />
+  <!-- ── Tab 4: t-Test ── -->
+  <div role="tabpanel" class="tab-content col-span-5 bg-base-100 rounded-b-box rounded-tr-box p-6">
+    <h2 class="font-semibold mb-3">Welch's t-Test: Before vs After Handwashing</h2>
+    <div class="stats stats-horizontal shadow text-sm">
+      <div class="stat py-3 px-5">
+        <div class="stat-title text-xs">t-statistic</div>
+        <div class="stat-value text-lg">9.6101</div>
+      </div>
+      <div class="stat py-3 px-5">
+        <div class="stat-title text-xs">p-value</div>
+        <div class="stat-value text-lg text-success">
+          1.45e-15
+        </div>
+      </div>
+    </div>
+    <div class="alert alert-success mt-4 text-sm">
+      
+        ✅ The difference is <strong>statistically significant</strong> (p &lt; 0.05).
+        Handwashing provably reduced mortality.
+      
+    </div>
+  </div>
+
+  <input type="radio" name="atabs" role="tab" class="tab" aria-label="Summary" />
+  <!-- ── Tab 5: Summary ── -->
+  <div role="tabpanel" class="tab-content col-span-5 bg-base-100 rounded-b-box rounded-tr-box p-6">
+    <h2 class="font-semibold mb-3">Conclusions</h2>
+    <ul class="list-disc list-inside space-y-2 text-sm text-gray-700">
+      <li>Clinic 1 (medical students performing autopsies) had consistently
+          higher death proportions than Clinic 2 (midwife students) from 1841–1846.</li>
+      <li>After Semmelweis mandated handwashing in June 1847, deaths fell by
+          roughly <strong>-0.084</strong> in absolute proportion.</li>
+      <li>Bootstrap 95 % CI:
+          [<strong>-0.1017</strong>, <strong>-0.067</strong>] —
+          equivalent to a 10.17–6.7 percentage-point
+          reduction.</li>
+      <li>Welch's t-test: t = 9.6101, p = 1.45e-15.
+          Result is statistically significant.
+          
+      </li>
+    </ul>
+
+    
+    <h3 class="font-semibold mt-5 mb-2">Clinic Comparison Table</h3>
+    <div class="overflow-x-auto">
+      <table class="table table-sm table-zebra w-full">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Clinic 1 (proportion)</th>
+            <th>Clinic 2 (proportion)</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr>
+            <td>1841</td>
+            <td>0.0781</td>
+            <td>0.0352</td>
+          </tr>
+          
+          <tr>
+            <td>1842</td>
+            <td>0.1576</td>
+            <td>0.076</td>
+          </tr>
+          
+          <tr>
+            <td>1843</td>
+            <td>0.0895</td>
+            <td>0.0599</td>
+          </tr>
+          
+          <tr>
+            <td>1844</td>
+            <td>0.0824</td>
+            <td>0.023</td>
+          </tr>
+          
+          <tr>
+            <td>1845</td>
+            <td>0.069</td>
+            <td>0.0204</td>
+          </tr>
+          
+          <tr>
+            <td>1846</td>
+            <td>0.1145</td>
+            <td>0.028</td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+    
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const cd = {"labels": [1841, 1842, 1843, 1844, 1845, 1846], "clinic1": [0.078063, 0.157591, 0.089542, 0.082357, 0.069015, 0.114464], "clinic2": [0.035217, 0.075968, 0.059876, 0.023004, 0.020364, 0.02797]};
+    const md = {"labelsBefore": ["1841-01-01", "1841-02-01", "1841-03-01", "1841-04-01", "1841-05-01", "1841-06-01", "1841-07-01", "1841-08-01", "1841-09-01", "1841-10-01", "1841-11-01", "1842-01-01", "1842-02-01", "1842-03-01", "1842-04-01", "1842-05-01", "1842-06-01", "1842-07-01", "1842-08-01", "1842-09-01", "1842-10-01", "1842-11-01", "1842-12-01", "1843-01-01", "1843-02-01", "1843-03-01", "1843-04-01", "1843-05-01", "1843-06-01", "1843-07-01", "1843-08-01", "1843-09-01", "1843-10-01", "1843-11-01", "1843-12-01", "1844-01-01", "1844-02-01", "1844-03-01", "1844-04-01", "1844-05-01", "1844-06-01", "1844-07-01", "1844-08-01", "1844-09-01", "1844-10-01", "1844-11-01", "1844-12-01", "1845-01-01", "1845-02-01", "1845-03-01", "1845-04-01", "1845-05-01", "1845-06-01", "1845-07-01", "1845-08-01", "1845-09-01", "1845-10-01", "1845-11-01", "1845-12-01", "1846-01-01", "1846-02-01", "1846-03-01", "1846-04-01", "1846-05-01", "1846-06-01", "1846-07-01", "1846-08-01", "1846-09-01", "1846-10-01", "1846-11-01", "1846-12-01", "1847-01-01", "1847-02-01", "1847-03-01", "1847-04-01", "1847-05-01"], "before": [0.145669, 0.075314, 0.043321, 0.015686, 0.007843, 0.05, 0.084211, 0.013514, 0.018779, 0.110169, 0.225532, 0.208469, 0.122186, 0.102273, 0.107438, 0.032258, 0.065934, 0.207792, 0.25463, 0.183857, 0.293388, 0.229665, 0.313808, 0.191176, 0.159696, 0.12406, 0.119298, 0.060976, 0.040816, 0.005236, 0.015544, 0.022624, 0.176, 0.071429, 0.080508, 0.151639, 0.11284, 0.17029, 0.173077, 0.058333, 0.026786, 0.043689, 0.063197, 0.012245, 0.032258, 0.110204, 0.105469, 0.075908, 0.047445, 0.044521, 0.042308, 0.043919, 0.071429, 0.061224, 0.035857, 0.105485, 0.14841, 0.109434, 0.104869, 0.133929, 0.180887, 0.154341, 0.189723, 0.134426, 0.101504, 0.130952, 0.180556, 0.143911, 0.149606, 0.107744, 0.053691, 0.032154, 0.019231, 0.036066, 0.182692, 0.122449], "labelsAfter": ["1847-06-01", "1847-07-01", "1847-08-01", "1847-09-01", "1847-10-01", "1847-11-01", "1847-12-01", "1848-01-01", "1848-02-01", "1848-03-01", "1848-04-01", "1848-05-01", "1848-06-01", "1848-07-01", "1848-08-01", "1848-09-01", "1848-10-01", "1848-11-01", "1848-12-01", "1849-01-01", "1849-02-01", "1849-03-01"], "after": [0.022388, 0.012, 0.018939, 0.045802, 0.039568, 0.044715, 0.029304, 0.035336, 0.006873, 0.0, 0.006557, 0.009585, 0.011364, 0.003717, 0.0, 0.009615, 0.023411, 0.029032, 0.013405, 0.022333, 0.030848, 0.049261]};
+    const bd = {"labels": [-0.11085, -0.10946, -0.10806, -0.10666, -0.10526, -0.10387, -0.10247, -0.10107, -0.09967, -0.09828, -0.09688, -0.09548, -0.09408, -0.09269, -0.09129, -0.08989, -0.08849, -0.0871, -0.0857, -0.0843, -0.0829, -0.08151, -0.08011, -0.07871, -0.07731, -0.07592, -0.07452, -0.07312, -0.07172, -0.07033, -0.06893, -0.06753, -0.06613, -0.06474, -0.06334, -0.06194, -0.06055, -0.05915, -0.05775, -0.05635], "counts": [2, 7, 6, 5, 12, 18, 24, 26, 39, 52, 53, 76, 101, 138, 142, 143, 151, 167, 178, 166, 218, 199, 167, 149, 158, 141, 110, 91, 61, 47, 44, 38, 30, 14, 8, 7, 5, 3, 1, 3], "ci_lower": -0.10168, "ci_upper": -0.06704};
+    if (cd && !cd.empty) renderClinicChart("aClinicChart", cd);
+    if (md && !md.empty) renderMonthlyChart("aMonthlyChart", md);
+    if (bd && !bd.empty) renderBootstrapHistogram("aBootstrapChart", bd);
+  });
+</script>
+
+  </main>
+</body>
+</html>

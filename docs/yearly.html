@@ -1,0 +1,470 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yearly Data</title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4/dist/full.min.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+  
+  <script src="./static/js/charts.js" defer></script>
+</head>
+<body class="min-h-screen bg-base-200">
+
+  <nav class="navbar bg-base-100 shadow px-4 gap-2">
+    <div class="flex-1">
+      <a href="index.html" class="btn btn-ghost text-xl font-bold">
+        🧼 Semmelweis
+      </a>
+    </div>
+    <div class="flex-none flex gap-2">
+      <a href="#" onclick="alert('Upload disabled in static version.'); return false;"       class="btn btn-sm btn-outline">Upload CSV</a>
+      <a href="yearly.html"  class="btn btn-sm btn-outline">Yearly</a>
+      <a href="monthly.html" class="btn btn-sm btn-outline">Monthly</a>
+      <a href="analysis.html"     class="btn btn-sm btn-primary">Analysis</a>
+    </div>
+  </nav>
+
+  <main class="container mx-auto p-4 max-w-6xl">
+    
+<div class="flex justify-between items-center my-4">
+  <h1 class="text-xl font-bold">Yearly Deaths by Clinic</h1>
+  <div class="flex gap-2">
+    <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"  class="btn btn-sm btn-primary">+ Add record</a>
+    <a href="downloads/yearly_deaths.csv" download  class="btn btn-sm btn-outline">⬇ CSV</a>
+    <a href="downloads/clinic_comparison.png" downloadclass="btn btn-sm btn-outline">⬇ Chart PNG</a>
+  </div>
+</div>
+
+<!-- Chart -->
+<div class="card bg-base-100 shadow mb-6">
+  <div class="card-body">
+    
+      <div class="h-80"><canvas id="clinicChart"></canvas></div>
+    
+  </div>
+</div>
+
+<!-- Tabs: Clinic 1 | Clinic 2 | All -->
+<div role="tablist" class="tabs tabs-boxed mb-0 bg-base-100 rounded-b-none px-2 pt-2">
+  <input type="radio" name="ytabs" role="tab" class="tab" aria-label="Clinic 1" checked="checked" />
+  <div role="tabpanel" class="tab-content col-span-3 bg-base-100 rounded-b-box rounded-tr-box p-4">
+    <!-- templates/analysis/_yearly_table.html -->
+
+<div class="overflow-x-auto">
+  <table class="table table-zebra table-sm w-full">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Clinic</th>
+        <th>Births</th>
+        <th>Deaths</th>
+        <th>Proportion</th>
+        <th class="text-right">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr>
+        <td>1841</td>
+        <td>clinic 1</td>
+        <td>3036</td>
+        <td>237</td>
+        <td>0.0781</td>
+        <td class="text-right">
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-ghost">Edit</a>
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-error btn-outline">Delete</a>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>1842</td>
+        <td>clinic 1</td>
+        <td>3287</td>
+        <td>518</td>
+        <td>0.1576</td>
+        <td class="text-right">
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-ghost">Edit</a>
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-error btn-outline">Delete</a>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>1843</td>
+        <td>clinic 1</td>
+        <td>3060</td>
+        <td>274</td>
+        <td>0.0895</td>
+        <td class="text-right">
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-ghost">Edit</a>
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-error btn-outline">Delete</a>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>1844</td>
+        <td>clinic 1</td>
+        <td>3157</td>
+        <td>260</td>
+        <td>0.0824</td>
+        <td class="text-right">
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-ghost">Edit</a>
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-error btn-outline">Delete</a>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>1845</td>
+        <td>clinic 1</td>
+        <td>3492</td>
+        <td>241</td>
+        <td>0.0690</td>
+        <td class="text-right">
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-ghost">Edit</a>
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-error btn-outline">Delete</a>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>1846</td>
+        <td>clinic 1</td>
+        <td>4010</td>
+        <td>459</td>
+        <td>0.1145</td>
+        <td class="text-right">
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-ghost">Edit</a>
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-error btn-outline">Delete</a>
+        </td>
+      </tr>
+      
+    </tbody>
+  </table>
+</div>
+
+  </div>
+  
+  <input type="radio" name="ytabs" role="tab" class="tab" aria-label="Clinic 2" />
+  <div role="tabpanel" class="tab-content col-span-3 bg-base-100 rounded-b-box rounded-tr-box p-4">
+    <!-- templates/analysis/_yearly_table.html -->
+
+<div class="overflow-x-auto">
+  <table class="table table-zebra table-sm w-full">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Clinic</th>
+        <th>Births</th>
+        <th>Deaths</th>
+        <th>Proportion</th>
+        <th class="text-right">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr>
+        <td>1841</td>
+        <td>clinic 2</td>
+        <td>2442</td>
+        <td>86</td>
+        <td>0.0352</td>
+        <td class="text-right">
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-ghost">Edit</a>
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-error btn-outline">Delete</a>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>1842</td>
+        <td>clinic 2</td>
+        <td>2659</td>
+        <td>202</td>
+        <td>0.0760</td>
+        <td class="text-right">
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-ghost">Edit</a>
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-error btn-outline">Delete</a>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>1843</td>
+        <td>clinic 2</td>
+        <td>2739</td>
+        <td>164</td>
+        <td>0.0599</td>
+        <td class="text-right">
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-ghost">Edit</a>
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-error btn-outline">Delete</a>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>1844</td>
+        <td>clinic 2</td>
+        <td>2956</td>
+        <td>68</td>
+        <td>0.0230</td>
+        <td class="text-right">
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-ghost">Edit</a>
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-error btn-outline">Delete</a>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>1845</td>
+        <td>clinic 2</td>
+        <td>3241</td>
+        <td>66</td>
+        <td>0.0204</td>
+        <td class="text-right">
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-ghost">Edit</a>
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-error btn-outline">Delete</a>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>1846</td>
+        <td>clinic 2</td>
+        <td>3754</td>
+        <td>105</td>
+        <td>0.0280</td>
+        <td class="text-right">
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-ghost">Edit</a>
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-error btn-outline">Delete</a>
+        </td>
+      </tr>
+      
+    </tbody>
+  </table>
+</div>
+
+  </div>
+  
+  <input type="radio" name="ytabs" role="tab" class="tab" aria-label="All Records" />
+  <div role="tabpanel" class="tab-content col-span-3 bg-base-100 rounded-b-box rounded-tr-box p-4">
+    <!-- templates/analysis/_yearly_table.html -->
+
+<div class="overflow-x-auto">
+  <table class="table table-zebra table-sm w-full">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Clinic</th>
+        <th>Births</th>
+        <th>Deaths</th>
+        <th>Proportion</th>
+        <th class="text-right">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr>
+        <td>1841</td>
+        <td>clinic 1</td>
+        <td>3036</td>
+        <td>237</td>
+        <td>0.0781</td>
+        <td class="text-right">
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-ghost">Edit</a>
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-error btn-outline">Delete</a>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>1842</td>
+        <td>clinic 1</td>
+        <td>3287</td>
+        <td>518</td>
+        <td>0.1576</td>
+        <td class="text-right">
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-ghost">Edit</a>
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-error btn-outline">Delete</a>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>1843</td>
+        <td>clinic 1</td>
+        <td>3060</td>
+        <td>274</td>
+        <td>0.0895</td>
+        <td class="text-right">
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-ghost">Edit</a>
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-error btn-outline">Delete</a>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>1844</td>
+        <td>clinic 1</td>
+        <td>3157</td>
+        <td>260</td>
+        <td>0.0824</td>
+        <td class="text-right">
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-ghost">Edit</a>
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-error btn-outline">Delete</a>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>1845</td>
+        <td>clinic 1</td>
+        <td>3492</td>
+        <td>241</td>
+        <td>0.0690</td>
+        <td class="text-right">
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-ghost">Edit</a>
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-error btn-outline">Delete</a>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>1846</td>
+        <td>clinic 1</td>
+        <td>4010</td>
+        <td>459</td>
+        <td>0.1145</td>
+        <td class="text-right">
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-ghost">Edit</a>
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-error btn-outline">Delete</a>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>1841</td>
+        <td>clinic 2</td>
+        <td>2442</td>
+        <td>86</td>
+        <td>0.0352</td>
+        <td class="text-right">
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-ghost">Edit</a>
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-error btn-outline">Delete</a>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>1842</td>
+        <td>clinic 2</td>
+        <td>2659</td>
+        <td>202</td>
+        <td>0.0760</td>
+        <td class="text-right">
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-ghost">Edit</a>
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-error btn-outline">Delete</a>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>1843</td>
+        <td>clinic 2</td>
+        <td>2739</td>
+        <td>164</td>
+        <td>0.0599</td>
+        <td class="text-right">
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-ghost">Edit</a>
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-error btn-outline">Delete</a>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>1844</td>
+        <td>clinic 2</td>
+        <td>2956</td>
+        <td>68</td>
+        <td>0.0230</td>
+        <td class="text-right">
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-ghost">Edit</a>
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-error btn-outline">Delete</a>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>1845</td>
+        <td>clinic 2</td>
+        <td>3241</td>
+        <td>66</td>
+        <td>0.0204</td>
+        <td class="text-right">
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-ghost">Edit</a>
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-error btn-outline">Delete</a>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>1846</td>
+        <td>clinic 2</td>
+        <td>3754</td>
+        <td>105</td>
+        <td>0.0280</td>
+        <td class="text-right">
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-ghost">Edit</a>
+          <a href="#" onclick="alert(\'CRUD operations are disabled in this static export.\'); return false;"
+             class="btn btn-xs btn-error btn-outline">Delete</a>
+        </td>
+      </tr>
+      
+    </tbody>
+  </table>
+</div>
+
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const cd = {"labels": [1841, 1842, 1843, 1844, 1845, 1846], "clinic1": [0.078063, 0.157591, 0.089542, 0.082357, 0.069015, 0.114464], "clinic2": [0.035217, 0.075968, 0.059876, 0.023004, 0.020364, 0.02797]};
+    if (cd && !cd.empty) renderClinicChart("clinicChart", cd);
+  });
+</script>
+
+  </main>
+</body>
+</html>
