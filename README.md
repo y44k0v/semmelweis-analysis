@@ -1,8 +1,10 @@
 # Semmelweis Handwashing Analysis - Django App
 
-## Python for Web Develpment
+## Python for Web Develpment Feb-26
 
-## 0. Source & Static Rendering
+Demo for file uploading and static site generation.
+
+### 0. Source & Static Rendering
 
 [Kaggel](https://www.kaggle.com/code/arijit75/dr-semmelweis-and-the-discovery-of-handwashing) and folder `ORIGINAL`.
 
